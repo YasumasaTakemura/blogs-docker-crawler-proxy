@@ -3,28 +3,22 @@
 
 ## Steps
 
-Run this command (don't miss d argument at second command)  
-This commands decrypt .env.enc file
-```
-cd docker-crawler-proxy
-bash ./bin/kms.sh d    
-```
 
-
-Replace 'ID or something'
- ```
- 1. replace "< set your ... >" from .env file  
- 2. replace "< set your ... >" from kms.sh  
+1 ) Move to directory
+```
+cd blogs-docker-crawler-proxy 
 ```
 
-encrypt  .env
+2 ) Set/Replace your ProjectID and Database_URL in env/.env   
+3 ) Set/Replace your Key and KEYRING in bin/kms.sh   
+4 ) Encrypt  .env and remove it
 ```
 bash ./bin/kms.sh
 rm env/.env
 
 ```
 
-Then set up
+5 ) Then set up 
+check docker image of your supervisor application before running set_up.sh
 ```
 bash ./bin/set_up.sh    
-```
