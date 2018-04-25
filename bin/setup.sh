@@ -48,8 +48,9 @@ sed -e "s/SQLPROXY_IMG_VERSION/$SQLPROXY_IMG_VERSION/g" \
     -e "s/LOGGING/$LOGGING/g" \
     ./template/docker-compose-template.yml  >  ./docker-compose.yml
 
-gcloud docker -- pull gcr.io/yasu-xxx-training-sandbox/api-server && \
-docker tag gcr.io/yasu-xxx-training-sandbox/api-server api-server && \
+# pul image from GCR
+gcloud docker -- pull gcr.io/$PROJECT_ID/$ImageName && \
+docker tag gcr.io/$PROJECT_ID/$ImageName $ImageName && \
 docker-compose up -d
 
 # clean-up
