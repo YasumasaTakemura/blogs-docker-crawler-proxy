@@ -1,0 +1,40 @@
+version: "3.2"
+
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - "tmp:/tmp"
+      - "$PWD/nginx/ssl:/etc/nginx/ssl"
+      - "$PWD/nginx/conf.d:/etc/nginx/conf.d"
+    ports:
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    logging:
+      driver: LOGGING
+
+  api:
+    image: api-server:latest
+    env_file:
+     - "$PWD/env/.env"
+    volumes:
+      - "tmp:/tmp"
+      - "cloudsql:/cloudsql"
+    logging:
+      driver: LOGGING
+
+  sqlproxy:
+    image: gcr.io/cloudsql-docker/gce-proxy:SQLPROXY_IMG_VERSION
+    volumes:
+      - "cloudsql:/cloudsql"
+    command: |
+      ./cloud_sql_proxy
+      -dir=/cloudsql
+      -instances=DATABASE_ID &
+    logging:
+      driver: LOGGING
+
+volumes:
+  tmp:
+  cloudsql:
