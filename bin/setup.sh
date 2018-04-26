@@ -37,9 +37,9 @@ gen_env_file
 # are you on VM
 check_on_vm
 
-#decrypt env file and keys for ssl
-bash ./bin/kms.sh d && set_env
-bash ./bin/decrypt_ssl_keys.sh
+# set env
+set_env
+
 
 # replace params
 sed -e "s/SQLPROXY_IMG_VERSION/$SQLPROXY_IMG_VERSION/g" \
